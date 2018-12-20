@@ -802,14 +802,19 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 
 		std::vector<Board*>* intermediate = generate_pawn_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_rook_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_knight_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_bishop_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_queen_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_king_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
 		delete intermediate;
@@ -822,14 +827,19 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 
 		std::vector<Board*>* intermediate = generate_pawn_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_rook_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_knight_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_bishop_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_queen_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
+		delete intermediate;
 		intermediate = generate_king_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
 		delete intermediate;
