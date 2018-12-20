@@ -123,7 +123,7 @@ namespace NATHAN {
 				uint64_t lsb_possible_moves = Helper::lsb(possible_moves);
 				uint64_t try_move = (uint64_t)1 << lsb_possible_moves;
 				if (!(try_move & current_board->getWhitePieces())) {
-					Board* new_board(new Board(current_board));
+					Board* new_board = new Board(current_board);
 					uint64_t new_knights = current_board->get_knights_white() ^ ((uint64_t)1 << lsb_current_knight);
 					new_knights |= try_move;
 					new_board->set_white_knights(new_knights);
@@ -132,9 +132,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 				}
 				possible_moves ^= ((uint64_t)1 << lsb_possible_moves);
 			}
@@ -168,9 +167,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 				}
 				possible_moves ^= ((uint64_t)1 << lsb_possible_moves);
 			}
@@ -203,9 +201,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 					new_rooks ^= try_move;
 				}
 			}
@@ -237,9 +234,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 					new_rooks ^= try_move;
 				}
 			}
@@ -271,9 +267,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 					new_bishops ^= try_move;
 				}
 			}
@@ -305,9 +300,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 					new_bishops ^= try_move;
 				}
 			}
@@ -339,9 +333,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 					new_queens ^= try_move;
 				}
 			}
@@ -373,9 +366,8 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
-					delete new_board;
 					new_queens ^= try_move;
 				}
 			}
@@ -408,9 +400,8 @@ namespace NATHAN {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 			}
 			possible_moves ^= ((uint64_t)1 << lsb_possible_moves);
 		}
@@ -424,8 +415,7 @@ namespace NATHAN {
 			new_board->set_white_king(2); // hard coded, it's the only possibility
 			new_board->clear_en_passant();
 			new_board->increase_ply();
-			moves->push_back(new Board(new_board));
-			delete new_board;
+			moves->push_back(new_board);
 		}
 
 		// queen side castle
@@ -436,8 +426,7 @@ namespace NATHAN {
 			new_board->set_white_king(32); // hard coded, it's the only possibility
 			new_board->clear_en_passant();
 			new_board->increase_ply();
-			moves->push_back(new Board(new_board));
-			delete new_board;
+			moves->push_back(new_board);
 		}
 
 		/*#ifndef PERF
@@ -474,9 +463,8 @@ namespace NATHAN {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 			}
 			possible_moves ^= ((uint64_t)1 << lsb_possible_moves);
 		}
@@ -490,8 +478,7 @@ namespace NATHAN {
 			new_board->set_black_king((uint64_t)2 << 56); // hard coded, it's the only possibility
 			new_board->clear_en_passant();
 			new_board->increase_ply();
-			moves->push_back(new Board(new_board));
-			delete new_board;
+			moves->push_back(new_board);
 		}
 
 		// queen side castle
@@ -502,8 +489,7 @@ namespace NATHAN {
 			new_board->set_black_king((uint64_t)32 << 56); // hard coded, it's the only possibility
 			new_board->clear_en_passant();
 			new_board->increase_ply();
-			moves->push_back(new Board(new_board));
-			delete new_board;
+			moves->push_back(new_board);
 		}
 
 		return moves;
@@ -535,9 +521,8 @@ namespace NATHAN {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 				new_pawns ^= move;
 			}
 
@@ -552,9 +537,8 @@ namespace NATHAN {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 			}
 
 			pawns ^= current_pawn;
@@ -578,9 +562,8 @@ namespace NATHAN {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 			}
 
 			pawns ^= current_pawn;
@@ -609,13 +592,12 @@ namespace NATHAN {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
 				else{
 					new_piece ^= move;
 					break;
 				}
-				delete new_board;
 				// rook
 				new_board = new Board(current_board);
 				new_board->set_white_pawns(all_white_pawns);
@@ -623,8 +605,7 @@ namespace NATHAN {
 				new_board->determine_white_capture(move);
 				new_board->clear_en_passant();
 				new_board->increase_ply();
-				moves->push_back(new Board(new_board));
-				delete new_board;
+				moves->push_back(new_board);
 				// knight
 				new_board = new Board(current_board);
 				new_board->set_white_pawns(all_white_pawns);
@@ -632,8 +613,7 @@ namespace NATHAN {
 				new_board->determine_white_capture(move);
 				new_board->clear_en_passant();
 				new_board->increase_ply();
-				moves->push_back(new Board(new_board));
-				delete new_board;
+				moves->push_back(new_board);
 				// bishop
 				new_board = new Board(current_board);
 				new_board->set_white_pawns(all_white_pawns);
@@ -641,8 +621,7 @@ namespace NATHAN {
 				new_board->determine_white_capture(move);
 				new_board->clear_en_passant();
 				new_board->increase_ply();
-				moves->push_back(new Board(new_board));
-				delete new_board;
+				moves->push_back(new_board);
 
 				new_piece ^= move;
 			}
@@ -680,9 +659,8 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 				new_pawns ^= move;
 			}
 
@@ -697,9 +675,8 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 			}
 
 			pawns ^= current_pawn;
@@ -723,9 +700,8 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
-				delete new_board;
 			}
 
 			pawns ^= current_pawn;
@@ -754,13 +730,12 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 				new_board->increase_ply();
 				Engine e = Engine(new_board);
 				if(!(e.unsafe_for_black() & new_board->get_king_black())) {
-					moves->push_back(new Board(new_board));
+					moves->push_back(new_board);
 				}
 				else{
 					new_piece ^= move;
 					break;
 				}
-				delete new_board;
 				// rook
 				new_board = new Board(current_board);
 				new_board->set_black_pawns(all_black_pawns);
@@ -768,8 +743,7 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 				new_board->determine_black_capture(move);
 				new_board->clear_en_passant();
 				new_board->increase_ply();
-				moves->push_back(new Board(new_board));
-				delete new_board;
+				moves->push_back(new_board);
 				// knight
 				new_board = new Board(current_board);
 				new_board->set_black_pawns(all_black_pawns);
@@ -777,8 +751,7 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 				new_board->determine_black_capture(move);
 				new_board->clear_en_passant();
 				new_board->increase_ply();
-				moves->push_back(new Board(new_board));
-				delete new_board;
+				moves->push_back(new_board);
 				// bishop
 				new_board = new Board(current_board);
 				new_board->set_black_pawns(all_black_pawns);
@@ -786,8 +759,7 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 				new_board->determine_black_capture(move);
 				new_board->clear_en_passant();
 				new_board->increase_ply();
-				moves->push_back(new Board(new_board));
-				delete new_board;
+				moves->push_back(new_board);
 
 				new_piece ^= move;
 			}
