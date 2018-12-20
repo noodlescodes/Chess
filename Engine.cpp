@@ -858,11 +858,15 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 			boards->pop();
 			if(current_board->get_ply() == (depth - 1)) {
 				if(current_board->whites_move()) {
-					nodes_searched += generate_white_moves()->size();
+					std::vector<Board*>* moves = generate_white_moves();
+					nodes_searched += moves->size();
+					delete moves;
 
 				}
 				else {
-					nodes_searched += generate_black_moves()->size();
+					std::vector<Board*>* moves = generate_black_moves();
+					nodes_searched += moves->size();
+					delete moves;
 				}
 			}
 			else {
