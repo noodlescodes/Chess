@@ -16,7 +16,7 @@ namespace NATHAN {
 	}
 
 	Engine::~Engine() {
-		delete current_board;
+		//delete current_board;
 	}
 	
 	uint64_t Engine::generate_slide_movesHV(uint64_t slide_position) {
@@ -109,8 +109,8 @@ namespace NATHAN {
 		return unsafe;
 	}
 
-	std::vector<Board*>* Engine::generate_knight_moves_white() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_knight_moves_white() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t knights = current_board->get_knights_white();
 
@@ -144,8 +144,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_knight_moves_black() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_knight_moves_black() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t knights = current_board->get_knights_black();
 
@@ -179,8 +179,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_rook_moves_white() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_rook_moves_white() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t rooks = current_board->get_rooks_white();
 
@@ -212,8 +212,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_rook_moves_black() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_rook_moves_black() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t rooks = current_board->get_rooks_black();
 
@@ -245,8 +245,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_bishop_moves_white() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_bishop_moves_white() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t bishops = current_board->get_bishops_white();
 
@@ -278,8 +278,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_bishop_moves_black() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_bishop_moves_black() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t bishops = current_board->get_bishops_black();
 
@@ -311,8 +311,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_queen_moves_white() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_queen_moves_white() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t queens = current_board->get_queens_white();
 
@@ -344,8 +344,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_queen_moves_black() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_queen_moves_black() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
 		uint64_t queens = current_board->get_queens_black();
 
@@ -377,8 +377,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_king_moves_white() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_king_moves_white() {
+		std::vector<Board>* moves = new std::vector<Board>();
 		uint64_t unsafe = unsafe_for_white();
 
 		uint64_t kings = current_board->get_king_white();
@@ -440,8 +440,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_king_moves_black() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_king_moves_black() {
+		std::vector<Board>* moves = new std::vector<Board>();
 		uint64_t unsafe = unsafe_for_black();
 
 		uint64_t kings = current_board->get_king_black();
@@ -495,8 +495,8 @@ namespace NATHAN {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_pawn_moves_white() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_pawn_moves_white() {
+		std::vector<Board>* moves = new std::vector<Board>();
 		uint64_t black_pieces = current_board->getBlackPieces();
 		uint64_t white_pieces = current_board->getWhitePieces();
 
@@ -633,8 +633,8 @@ namespace NATHAN {
 
 	// not working
 
-std::vector<Board*>* Engine::generate_pawn_moves_black() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+std::vector<Board>* Engine::generate_pawn_moves_black() {
+		std::vector<Board>* moves = new std::vector<Board>();
 		uint64_t white_pieces = current_board->getWhitePieces();
 		uint64_t black_pieces = current_board->getBlackPieces();
 
@@ -769,10 +769,10 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_white_moves() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_white_moves() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
-		std::vector<Board*>* intermediate = generate_pawn_moves_white();
+		std::vector<Board>* intermediate = generate_pawn_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
 		delete intermediate;
 		intermediate = generate_rook_moves_white();
@@ -794,10 +794,10 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 		return moves;
 	}
 
-	std::vector<Board*>* Engine::generate_black_moves() {
-		std::vector<Board*>* moves = new std::vector<Board*>();
+	std::vector<Board>* Engine::generate_black_moves() {
+		std::vector<Board>* moves = new std::vector<Board>();
 
-		std::vector<Board*>* intermediate = generate_pawn_moves_black();
+		std::vector<Board>* intermediate = generate_pawn_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
 		delete intermediate;
 		intermediate = generate_rook_moves_black();
@@ -823,26 +823,26 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 		uint64_t nodes_searched = 0; // don't count the first node
 		uint64_t max = 0;
 
-		std::stack<Board*>* boards = new std::stack<Board*>();
+		std::stack<Board>* boards = new std::stack<Board>();
 		boards->push(current_board);
 		while(boards->size()) {
-			current_board = boards->top();
+			current_board = &boards->top();
 			boards->pop();
 			if(current_board->get_ply() == (depth - 1)) {
 				if(current_board->whites_move()) {
-					std::vector<Board*>* moves = generate_white_moves();
+					std::vector<Board>* moves = generate_white_moves();
 					nodes_searched += moves->size();
 					delete moves;
 
 				}
 				else {
-					std::vector<Board*>* moves = generate_black_moves();
+					std::vector<Board>* moves = generate_black_moves();
 					nodes_searched += moves->size();
 					delete moves;
 				}
 			}
 			else {
-				std::vector<Board*>* intermediate;
+				std::vector<Board>* intermediate;
 				if(current_board->whites_move()) {
 					intermediate = generate_white_moves();
 				}
@@ -859,10 +859,10 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 					std::cout << max << std::endl;
 				}*/
 			}
-			delete current_board;
+			//delete current_board;
 		}
 
-		current_board = new Board();
+		//current_board = new Board();
 
 		delete boards;
 
