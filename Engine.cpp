@@ -132,7 +132,7 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-						moves->push_back(new_board);
+						moves->push_back(new Board(new_board));
 					}
 					delete new_board;
 				}
@@ -802,19 +802,14 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 
 		std::vector<Board*>* intermediate = generate_pawn_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_rook_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_knight_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_bishop_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_queen_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_king_moves_white();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
 		delete intermediate;
@@ -827,19 +822,14 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 
 		std::vector<Board*>* intermediate = generate_pawn_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_rook_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_knight_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_bishop_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_queen_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
-		delete intermediate;
 		intermediate = generate_king_moves_black();
 		moves->insert(moves->end(), intermediate->begin(), intermediate->end());
 		delete intermediate;
@@ -858,14 +848,11 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 			boards->pop();
 			if(current_board->get_ply() == (depth - 1)) {
 				if(current_board->whites_move()) {
-					std::vector<Board*>* moves = generate_white_moves();
-					nodes_searched += moves->size();
-					delete moves;
+					nodes_searched += generate_white_moves()->size();
+
 				}
 				else {
-					std::vector<Board*>* moves = generate_black_moves();
-					nodes_searched += moves->size();
-					delete moves;
+					nodes_searched += generate_black_moves()->size();
 				}
 			}
 			else {
@@ -886,7 +873,6 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 					std::cout << max << std::endl;
 				}*/
 			}
-
 			delete current_board;
 		}
 

@@ -55,7 +55,7 @@ int main()
 	std::cout << "Starting position:" << std::endl;
 	std::cout << *b << std::endl;
 
-//	Engine* e = new Engine(b);
+	Engine* e = new Engine(b);
 
 	/*std::vector<Board*>* knight_moves = e->generate_knight_moves_black();
 
@@ -186,13 +186,13 @@ int main()
 
 	delete b;
 
-	/*std::vector<Board*>* moves = e->generate_knight_moves_white();
+	/*std::vector<Board*>* moves = e->generate_pawn_moves_white();
 	
 
 	for(unsigned int i = 0; i < moves->size(); i++) {
-		std::cout << *moves->at(i) << std::endl;
+		//std::cout << *moves->at(i) << std::endl;
 	}
-
+	
 	std::cout << moves->size() << std::endl;*/
 
 	return 0;
