@@ -132,7 +132,7 @@ namespace NATHAN {
 					new_board->increase_ply();
 					Engine e = Engine(new_board);
 					if(!(e.unsafe_for_white() & new_board->get_king_white())) {
-						moves->push_back(new Board(new_board));
+						moves->push_back(new_board);
 					}
 					delete new_board;
 				}
@@ -886,6 +886,7 @@ std::vector<Board*>* Engine::generate_pawn_moves_black() {
 					std::cout << max << std::endl;
 				}*/
 			}
+
 			delete current_board;
 		}
 
